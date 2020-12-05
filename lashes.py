@@ -21,6 +21,8 @@ def points_distance(p1: list, p2:list):
 
 
 def attract(blackhole: BlackHole, point: list, strength: float):
+    """ This is basically lerping function... """
+
     # Vector pointing from the point to the black hole.
     dx = -point[0] + blackhole.pos[0]
     dy = -point[1] + blackhole.pos[1]
