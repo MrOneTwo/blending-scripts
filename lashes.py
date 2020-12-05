@@ -160,10 +160,6 @@ def create_lash(guide_bot_name: str, guide_top_name: str, thickness: float=0.01)
     tip_points = tip_points_with_noise
 
     #
-    # CLUMP THE TIP POINTS A BIT
-    #
-
-    #
     # ADD MIDPOINTS TO CONTROL THE CURVATURE
     #
 
@@ -175,7 +171,21 @@ def create_lash(guide_bot_name: str, guide_top_name: str, thickness: float=0.01)
         mid_points.append((x,y,z))
 
 
+    lashes_objects = []
     for i, lash_points in enumerate(zip(root_points, mid_points, tip_points)):
-        create_curve(f"eyelash.{i:03}", lash_points, (0.05, 0.02, 0), "eyelashes_generated", thickness)
+        lashes_objects.append(create_curve(f"eyelash.{i:03}", lash_points, (0.05, 0.02, 0), "eyelashes_generated", thickness))
+
+    #
+    # MERGE LASHES INTO ONE OBJECT FOR EASIER EDITING
+    #
+
+    MERGE_LASHES = True
+    if MERGE_LASHES:
+        bpy.ops.object.select_all(action='DESELECT')
+        for o in lashes_objects:
+            o.select_set(True)
+        bpy.context.view_layer.objects.active = lashes_objects[0]
+        bpy.ops.object.join()
+
 
 #create_lash("lash_guide_bot", "lash_guide_top", 0.01)
