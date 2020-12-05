@@ -1,3 +1,6 @@
+# This script generates eye lashes based on two guides. It uses NURBS curves for
+# the lashes.
+#
 # from michal import lashes
 # lashes.create_lash("lash_bot_guide", "lash_top_guide")
 
