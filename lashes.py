@@ -9,6 +9,10 @@ import random
 import math
 
 
+# Types
+Vector = list[float]
+
+
 class BlackHole():
     """ This class is used to attract objects to simulate clumping."""
     def __init__(self, pos: list, radius: float):
@@ -77,10 +81,11 @@ def create_curve(name: str, points: list, radiuses: list=None, target_collection
     return obj
 
 
-def get_curve_points(name: str):
+def get_curve_points(name: str) -> list[Vector]:
     # Convert the curve to mesh to get the vertices but don't add that mesh to
     # the scene since it's temporary.
     curve_obj = bpy.data.objects[name]
+    # Mind you that the vertices count depends on the 'Resolution Preview'.
     _curve_mesh = curve_obj.to_mesh()
     curve_mesh_obj = bpy.data.objects.new("delete_me", _curve_mesh.copy())
     return [(v.co.x, v.co.y, v.co.z) for v in curve_mesh_obj.data.vertices]
